@@ -17,18 +17,28 @@ import { User } from './user.entity';
 import { UpdateUserDTO } from './dtos/update-user.dto';
 import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
 import { UserDTO } from './dtos/user.dto';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
+@UseInterceptors(new SerializeInterceptor(UserDTO)) // Áp dụng Interceptor với UserDTO
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private authService: AuthService,
+  ) {}
 
   @Post('/signup')
   async createUser(@Body() body: CreateUserDTO) {
-    return this.usersService.create(body.email, body.password);
+    return this.authService.signUp(body.email, body.password);
+  }
+
+  @Post('/signin')
+  async signIn(@Body() body: CreateUserDTO) {
+    return this.authService.signIn(body.email, body.password);
   }
 
   @Get('/:id')
-  @UseInterceptors(new SerializeInterceptor(UserDTO)) // Áp dụng Interceptor với UserDTO
+  // @UseInterceptors(new SerializeInterceptor(UserDTO)) // Áp dụng Interceptor với UserDTO
   async findUser(@Param('id') id: string): Promise<User> {
     const user = await this.usersService.findOne(parseInt(id));
     if (!user) {

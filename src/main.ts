@@ -8,12 +8,14 @@ const cookieSession = require('cookie-session');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Cấu hình cookie-session
+  // Cấu hình cookie-session middleware
   app.use(
     cookieSession({
-      name: 'session', // Tên của cookie lưu session
-      keys: ['your-secret-key'], // Khóa bảo mật để mã hóa cookie
-      maxAge: 24 * 60 * 60 * 1000, // Thời gian hết hạn của cookie (1 ngày)
+      name: 'session',
+      keys: ['yourSecretKey'], // Thay thế bằng key bảo mật của bạn
+      maxAge: 24 * 60 * 60 * 1000, // Thời gian sống của cookie (1 ngày)
+      httpOnly: true, // Chỉ cho phép sử dụng trong HTTP (bảo mật)
+      secure: process.env.NODE_ENV === 'production', // Đặt cookie secure trong môi trường production
     }),
   );
 

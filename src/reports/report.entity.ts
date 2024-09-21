@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Report {
@@ -25,4 +26,11 @@ export class Report {
 
   @Column()
   mileage: number; // Số dặm/kilomet đã chạy
+
+  // Sử dụng ManyToOne để xác định mối quan hệ
+  @ManyToOne(() => User, (user) => user.reports)
+  user: User; // Một report thuộc về một user
+
+  @Column({ default: false })
+  approved: boolean;
 }

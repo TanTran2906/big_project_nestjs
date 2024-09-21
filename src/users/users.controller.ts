@@ -51,7 +51,7 @@ export class UsersController {
 
     // Gán userId vào đối tượng session
     session.userId = user.id;
-    console.log(session.userId);
+    // console.log(session.userId);
     // Trả về đối tượng user
     return user;
   }

@@ -3,6 +3,7 @@ import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import { INestApplication } from '@nestjs/common';
 import { setupApp } from '../src/setupApp';
+import { ConfigService } from '@nestjs/config';
 
 describe('Authentication System', () => {
   let app: INestApplication;
@@ -14,7 +15,7 @@ describe('Authentication System', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    setupApp(app);
+    setupApp(app, app.get(ConfigService));
     await app.init();
   });
 

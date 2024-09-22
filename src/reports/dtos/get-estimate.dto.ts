@@ -20,9 +20,9 @@ export class GetEstimateDto {
 
   @IsOptional()
   @Transform(({ value }) => parseFloat(value))
-  longitude?: number;
+  lng?: number;
 
   @IsOptional()
   @Transform(({ value }) => parseFloat(value))
-  latitude?: number;
+  lat?: number;
 }

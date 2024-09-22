@@ -1,5 +1,5 @@
 // import { Exclude } from 'class-transformer';
-import { Report } from 'src/reports/report.entity';
+import { Report } from '../reports/report.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()

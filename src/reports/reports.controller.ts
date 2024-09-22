@@ -13,13 +13,13 @@ import {
 } from '@nestjs/common';
 import { ReportsService } from './reports.service';
 import { CreateReportDto } from './dtos/create-report.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { CurrentUser } from 'src/users/decorator/current-user.decorator';
-import { User } from 'src/users/user.entity';
-import { SerializeInterceptor } from 'src/interceptors/serialize.interceptor';
+import { AuthGuard } from '../guards/auth.guard';
+import { CurrentUser } from '../users/decorator/current-user.decorator';
+import { User } from '../users/user.entity';
+import { SerializeInterceptor } from '../interceptors/serialize.interceptor';
 import { ReportDTO } from './dtos/report-dto';
 import { ApproveReportDto } from './dtos/approve-report.dto';
-import { AdminGuard } from 'src/guards/admin.guard';
+import { AdminGuard } from '../guards/admin.guard';
 import { GetEstimateDto } from './dtos/get-estimate.dto';
 // import { CurrentUserInterceptor } from 'src/users/interceptors/current-user.interceptor';
 
@@ -51,13 +51,10 @@ export class ReportsController {
     return report;
   }
 
-  @Get('estimate')
+  @Get('/estimate')
   getEstimate(@Query() query: GetEstimateDto) {
     // Logic để ước tính giá trị xe
-    console.log(query); // Để kiểm tra dữ liệu đầu vào
-    return {
-      message: 'Giá trị ước tính của xe',
-      data: query, // Có thể thay thế bằng logic ước tính thực tế
-    };
+    // console.log(query); // Để kiểm tra dữ liệu đầu vào
+    return this.reportsService.createEstimate(query);
   }
 }

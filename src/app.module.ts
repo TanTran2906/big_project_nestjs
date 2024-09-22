@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -8,6 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Report } from './reports/report.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import cookieSession from 'cookie-session';
 
 @Module({
   imports: [
@@ -21,7 +22,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     //   entities: [User, Report], // Các entity sẽ được thêm vào sau
     //   synchronize: true,
     // }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
